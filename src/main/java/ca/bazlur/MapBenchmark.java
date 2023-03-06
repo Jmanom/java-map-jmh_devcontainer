@@ -45,8 +45,9 @@ import java.util.concurrent.TimeUnit;
 @Fork(1)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
+@OperationsPerInvocation
 public class MapBenchmark {
-    private static final int SIZE = 1000;
+    private static final int SIZE = 10;
 
     private Map<Integer, String> mapOf;
     private Map<Integer, String> hashMap;
