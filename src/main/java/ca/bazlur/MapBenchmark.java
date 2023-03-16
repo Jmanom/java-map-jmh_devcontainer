@@ -34,6 +34,7 @@ package ca.bazlur;
 import org.openjdk.jmh.annotations.Benchmark;
 
 import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.infra.Blackhole;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +42,7 @@ import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
 @Warmup(iterations = 5, time = 1)
-@Measurement(iterations = 10, time = 1)
+@Measurement(iterations = 20, time = 1)
 @Fork(1)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
@@ -68,13 +69,21 @@ public class MapBenchmark {
         );
 
         hashMap = new HashMap<>();
-        for (int i = 0; i < SIZE; i++) {
-            hashMap.put(i, "value" + i);
-        }
+
+        hashMap.put(0, "value0");
+        hashMap.put(1, "value1");
+        hashMap.put(2, "value2");
+        hashMap.put(3, "value3");
+        hashMap.put(4, "value4");
+        hashMap.put(5, "value5");
+        hashMap.put(6, "value6");
+        hashMap.put(7, "value7");
+        hashMap.put(8, "value8");
+        hashMap.put(9, "value9");
     }
 
     @Benchmark
-    public void testMapOf() {
+    public void testMapOf(Blackhole blackhole) {
         Map<Integer, String> map = Map.of(
                 0, "value0",
                 1, "value1",
@@ -87,14 +96,24 @@ public class MapBenchmark {
                 8, "value8",
                 9, "value9"
         );
+        blackhole.consume(map);
     }
 
+
     @Benchmark
-    public void testHashMap() {
-        Map<Integer, String> map = new HashMap<>();
-        for (int i = 0; i < SIZE; i++) {
-            map.put(i, "value" + i);
-        }
+    public void testHashMap(Blackhole blackhole) {
+        Map<Integer, String> hashMap = new HashMap<>();
+        hashMap.put(0, "value0");
+        hashMap.put(1, "value1");
+        hashMap.put(2, "value2");
+        hashMap.put(3, "value3");
+        hashMap.put(4, "value4");
+        hashMap.put(5, "value5");
+        hashMap.put(6, "value6");
+        hashMap.put(7, "value7");
+        hashMap.put(8, "value8");
+        hashMap.put(9, "value9");
+        blackhole.consume(hashMap);
     }
 
     @Benchmark
